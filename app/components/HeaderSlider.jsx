@@ -1,7 +1,9 @@
 "use client"
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import useWindowSize from '@/hooks/useWindowSize'
+
+
 
 import watch1 from '@/public/images/watch-header.jpg'
 import watch2 from '@/public/images/watch2.jpg'
@@ -18,20 +20,28 @@ import 'swiper/css/pagination';
 
 
 const watches = [
-  { clocks: watch1, text: 'uno' },
-  { clocks: watch2, text: 'dos' },
-  { clocks: watch3, text: 'tres' },
-  { clocks: watch4, text: 'cuatro' },
+  { clocks: watch1, },
+  { clocks: watch2, },
+  { clocks: watch3, },
+  { clocks: watch4, },
 ]
 
 
 const HeaderSlider = () => {
 
+
+  const [isMounted, setIsMounted] = useState(false)
   const { width } = useWindowSize()
   const date = Date.now()
   console.log(date)
 
 
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+  if (!isMounted) {
+    return null
+  }
 
   return (
     <>
@@ -40,7 +50,6 @@ const HeaderSlider = () => {
           spaceBetween={0}
           slidesPerView={
             width < 900 ? 1 : 2
-
           }
           onSlideChange={() => {
             console.log('slide change')
